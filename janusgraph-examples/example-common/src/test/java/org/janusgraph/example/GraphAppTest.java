@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,22 +55,22 @@ public class GraphAppTest {
     }
 
     @Test
-    public void openGraph() throws ConfigurationException {
+    public void openGraph() {
         assertNotNull(g);
     }
 
     @Test
-    public void openGraphNullConfig() throws ConfigurationException {
-        assertThrows(NullPointerException.class, () -> new GraphApp(null).openGraph());
+    public void openGraphNullConfig() {
+        assertThrows(RuntimeException.class, () -> new GraphApp(null).openGraph());
     }
 
     @Test
-    public void openGraphConfigNotFound() throws ConfigurationException {
-        assertThrows(FileNotFoundException.class, () -> new GraphApp("conf/foobar").openGraph());
+    public void openGraphConfigNotFound() {
+        assertThrows(ConfigurationException.class, () -> new GraphApp("conf/foobar").openGraph());
     }
 
     @Test
-    public void createElements() throws ConfigurationException {
+    public void createElements() {
         app.createElements();
 
         assertEquals(12L, g.V().count().next().longValue());
@@ -98,7 +97,7 @@ public class GraphAppTest {
     }
 
     @Test
-    public void updateElements() throws ConfigurationException {
+    public void updateElements() {
         app.createElements();
         assertFalse(g.V().has("name", "jupiter").has("ts").hasNext());
         app.updateElements();

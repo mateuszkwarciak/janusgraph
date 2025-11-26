@@ -14,7 +14,6 @@
 
 package org.janusgraph.util.system;
 
-import org.apache.commons.lang.UnhandledException;
 import org.janusgraph.diskstorage.BackendException;
 import org.janusgraph.util.datastructures.ExceptionWrapper;
 import org.slf4j.Logger;
@@ -44,10 +43,8 @@ public class ExecuteUtil {
             Throwable throwable = exceptionWrapper.getThrowable();
             if(throwable instanceof BackendException){
                 throw (BackendException) throwable;
-            } else if(throwable instanceof RuntimeException){
-                throw (RuntimeException) throwable;
             } else {
-                throw new UnhandledException(throwable);
+                throw new RuntimeException(throwable);
             }
         }
     }

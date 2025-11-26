@@ -14,7 +14,6 @@
 
 package org.janusgraph.core.schema.json.parser;
 
-import org.apache.commons.lang.UnhandledException;
 import org.janusgraph.core.schema.Parameter;
 
 import java.lang.reflect.InvocationTargetException;
@@ -44,7 +43,7 @@ public class EnumJsonParameterParser implements JsonParameterParser {
             method = enumClass.getMethod("valueOf", String.class);
             return method.invoke(null, value.substring(indexOfValue+1));
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            throw new UnhandledException(e);
+            throw new RuntimeException(e);
         }
     }
 }

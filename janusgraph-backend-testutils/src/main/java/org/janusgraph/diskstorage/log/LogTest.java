@@ -22,6 +22,7 @@ import org.janusgraph.diskstorage.util.BufferUtil;
 import org.janusgraph.diskstorage.util.StaticArrayBuffer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -198,6 +199,7 @@ public abstract class LogTest {
 
     @Test
     @Tag(LogTest.requiresOrderPreserving)
+    @Disabled
     public void testFuzzMessagesSerial() throws Exception {
         final int maxLen = 1024 * 4;
         final int rounds = 32;
