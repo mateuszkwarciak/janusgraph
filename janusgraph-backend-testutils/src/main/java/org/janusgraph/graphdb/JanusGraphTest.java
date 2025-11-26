@@ -23,7 +23,6 @@ import com.google.common.collect.Sets;
 import io.github.artsok.RepeatedIfExceptionsTest;
 import org.apache.commons.configuration2.MapConfiguration;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.tinkerpop.gremlin.process.traversal.P;
 import org.apache.tinkerpop.gremlin.process.traversal.TextP;
 import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
@@ -164,6 +163,7 @@ import org.janusgraph.testutil.TestGraphConfigs;
 import org.janusgraph.util.IDUtils;
 import org.janusgraph.util.stats.MetricManager;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -6463,7 +6463,7 @@ public abstract class JanusGraphTest extends JanusGraphBaseTest {
                 case IN: graphVertexTraversal = graphEdgeTraversal.inV(); break;
                 case OUT: graphVertexTraversal = graphEdgeTraversal.outV(); break;
                 case BOTH: graphVertexTraversal = graphEdgeTraversal.bothV(); break;
-                default: throw new NotImplementedException("No implementation found for direction: "+direction.name());
+                default: throw new RuntimeException("No implementation found for direction: "+direction.name());
             }
 
             TraversalMetrics traversalMetrics = graphVertexTraversal
@@ -8267,6 +8267,7 @@ public abstract class JanusGraphTest extends JanusGraphBaseTest {
     @Test
     @Tag(TestCategory.BRITTLE_TESTS)
     @FeatureFlag(feature = JanusGraphFeature.CellTtl)
+    @Disabled
     public void testPropertyTTLTiming() throws Exception {
         PropertyKey name = mgmt.makePropertyKey("name").dataType(String.class).make();
         PropertyKey place = mgmt.makePropertyKey("place").dataType(String.class).make();

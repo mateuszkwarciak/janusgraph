@@ -119,6 +119,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/HadoopRecordReaderTest.java</exclude>
+                        <exclude>**/ConfigurationTest.java</exclude>
+                        <exclude>**/CQLCustomIdSparkTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>

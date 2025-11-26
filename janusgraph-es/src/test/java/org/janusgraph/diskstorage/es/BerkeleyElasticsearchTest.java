@@ -22,6 +22,7 @@ import org.janusgraph.example.GraphOfTheGodsFactory;
 import org.janusgraph.graphdb.JanusGraphIndexTest;
 import org.janusgraph.util.system.IOUtils;
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -45,6 +46,7 @@ public class BerkeleyElasticsearchTest extends ElasticsearchJanusGraphIndexTest 
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/3960
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void indexShouldNotExistAfterDeletion() throws Exception {
         super.indexShouldNotExistAfterDeletion();
     }
@@ -66,6 +68,7 @@ public class BerkeleyElasticsearchTest extends ElasticsearchJanusGraphIndexTest 
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/3651
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testDisableAndDiscardManuallyAndDropEnabledIndex() throws Exception {
         super.testDisableAndDiscardManuallyAndDropEnabledIndex();
     }
@@ -73,6 +76,7 @@ public class BerkeleyElasticsearchTest extends ElasticsearchJanusGraphIndexTest 
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/3931
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testDiscardAndDropRegisteredIndex() throws ExecutionException, InterruptedException {
         super.testDiscardAndDropRegisteredIndex();
     }

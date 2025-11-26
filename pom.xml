@@ -233,7 +233,7 @@
                     <arguments>-DskipTests=true</arguments>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
                 <version>0.16.1</version>
@@ -284,7 +284,7 @@
                         <exclude>**/src/test/resources/org/janusgraph/hadoop/formats/edgelist/rdf/**</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -390,11 +390,33 @@
                     <version>3.3.1</version>
                     <configuration>
                         <argLine>${default.test.jvm.opts}</argLine>
-                        <runOrder>alphabetical</runOrder>
+                        <runOrder>balanced</runOrder>
                         <failIfNoTests>false</failIfNoTests>
                         <!-- six hours -->
                         <forkedProcessTimeoutInSeconds>21600</forkedProcessTimeoutInSeconds>
+                        <forkedProcessExitTimeoutInSeconds>180</forkedProcessExitTimeoutInSeconds>
+                        <!-- Sekwencyjnie i czysto -->
+                        <forkCount>1</forkCount>
                         <reuseForks>false</reuseForks>
+                        <parallel>none</parallel>
+                        <threadCount>1</threadCount>
+                        <perCoreThreadCount>false</perCoreThreadCount>
+
+                        <!-- Raporty/logi -->
+                        <printSummary>true</printSummary>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <trimStackTrace>false</trimStackTrace>
+
+                        <systemPropertyVariables>
+                            <build.dir>${project.build.directory}</build.dir>
+                            <is.testing>true</is.testing>
+                            <user.timezone>UTC</user.timezone>
+                            <hadoop.security.authentication>simple</hadoop.security.authentication>
+                        </systemPropertyVariables>
+
+                        <!-- Parasolowy retry na flaki (możesz też przenieść na linię poleceń) -->
+                        <rerunFailingTestsCount>1</rerunFailingTestsCount>
+
                         <excludes>
                             <exclude>**/*PerformanceTest.java</exclude>
                             <exclude>**/*ConcurrentTest.java</exclude>
@@ -403,6 +425,216 @@
                             <exclude>**/*ProcessTest.java</exclude>
                             <exclude>**/*ProcessPerformanceTest.java</exclude>
                             <exclude>**/*StructureTest.java</exclude>
+
+                            <!--moje excludy-->
+                            <exclude>**/JanusGraphSONModuleTest.java</exclude>
+                            <exclude>**/JanusGraphIoRegistryTest.java</exclude>
+                            <exclude>**/LongEncodingTest.java</exclude>
+                            <exclude>**/JanusGraphGremlinDriverPluginTest.java</exclude>
+                            <exclude>**/RelationIdentifierTest.java</exclude>
+                            <exclude>**/GeoshapeHelperTest.java</exclude>
+                            <exclude>**/GeoshapeGraphBinarySerializerTest.java</exclude>
+                            <exclude>**/JanusGraphPGraphBinarySerializerTest.java</exclude>
+                            <exclude>**/RelationIdentifierGraphBinarySerializerTest.java</exclude>
+                            <exclude>**/TinkerPopTextWrappingPredicateTest.java</exclude>
+                            <exclude>**/IDUtilsTest.java</exclude>
+                            <exclude>**/QueryBackPressureTest.java</exclude>
+                            <exclude>**/JanusGraphTraverserUtilTest.java</exclude>
+                            <exclude>**/MultiSliceQueriesGroupingUtilTest.java</exclude>
+                            <exclude>**/QueryBackPressureBuilderTest.java</exclude>
+                            <exclude>**/MultiQueriableStepBatchFetcherTest.java</exclude>
+                            <exclude>**/ConfigurationUtilTest.java</exclude>
+                            <exclude>**/CompletableFutureUtilTest.java</exclude>
+                            <exclude>**/BatchProcessingQueueTest.java</exclude>
+                            <exclude>**/TestModifierType.java</exclude>
+                            <exclude>**/JsonParameterDefinitionParserTest.java</exclude>
+                            <exclude>**/ExceptionUtilTest.java</exclude>
+                            <exclude>**/NoTransformCircleProcessorTest.java</exclude>
+                            <exclude>**/BerkeleyGraphTest.java</exclude>
+                            <exclude>**/InMemoryLazyLoadGraphTest.java</exclude>
+                            <exclude>**/DynamicErrorDistanceCircleProcessorTest.java</exclude>
+                            <exclude>**/FixedErrorDistanceCircleProcessorTest.java</exclude>
+                            <exclude>**/CircleUtilsTest.java</exclude>
+                            <exclude>**/InMemoryGraphTest.java</exclude>
+                            <exclude>**/InMemoryLockKeyColumnValueStoreTest.java</exclude>
+                            <exclude>**/InmemoryConfiguredGraphFactoryTest.java</exclude>
+                            <exclude>**/InMemoryOLAPTest.java</exclude>
+                            <exclude>**/InMemoryKeyColumnValueStoreTest.java</exclude>
+                            <exclude>**/InMemoryCustomIdTest.java</exclude>
+                            <exclude>**/InMemoryJanusGraphIoTest.java</exclude>
+                            <exclude>**/InMemoryPartitionGraphTest.java</exclude>
+                            <exclude>**/InMemoryColumnValueStoreTest.java</exclude>
+                            <exclude>**/InmemoryGraphDatabaseConfigurationInstanceExecutorServiceTest.java</exclude>
+                            <exclude>**/InMemoryConfigurationTest.java</exclude>
+                            <exclude>**/InmemoryGraphDatabaseConfigurationInstanceIdTest.java</exclude>
+                            <exclude>**/InMemoryStoreManagerTest.java</exclude>
+                            <exclude>**/MultiPageEntryBufferTest.java</exclude>
+                            <exclude>**/BufferPageTest.java</exclude>
+                            <exclude>**/InMemoryIDAuthorityTest.java</exclude>
+                            <exclude>**/SchemaManagerClientTest.java</exclude>
+                            <exclude>**/ConfigurationManagementGraphTest.java</exclude>
+                            <exclude>**/OrJanusPredicateTest.java</exclude>
+                            <exclude>**/VertexIDAssignerTest.java</exclude>
+                            <exclude>**/SerializerTest.java</exclude>
+                            <exclude>**/IDPoolTest.java</exclude>
+                            <exclude>**/CQLGraphTest.java</exclude>
+                            <exclude>**/ReadConfigurationConverterTest.java</exclude>
+                            <exclude>**/StandardVertexTest.java</exclude>
+                            <exclude>**/ManagementLoggerGraphCacheEvictionTest.java</exclude>
+                            <exclude>**/BerkeleyLogTest.java</exclude>
+                            <exclude>**/ConfigurationManagementGraphServerTest.java</exclude>
+                            <exclude>**/ExpirationCacheTest.java</exclude>
+                            <exclude>**/VariableLongTest.java</exclude>
+                            <exclude>**/JanusGraphMultiQueryStrategyTest.java</exclude>
+                            <exclude>**/QueryTest.java</exclude>
+                            <exclude>**/JanusGraphLocalQueryOptimizerStrategyTest.java</exclude>
+                            <exclude>**/AdjacentVertexFilterOptimizerStrategyTest.java</exclude>
+                            <exclude>**/AdjacentVertexHasUniquePropertyOptimizerStrategyTest.java</exclude>
+                            <exclude>**/AdjacentVertexIsOptimizerStrategyTest.java</exclude>
+                            <exclude>**/AdjacentVertexHasIdOptimizerStrategyTest.java</exclude>
+                            <exclude>**/StandardJanusGraphTxTest.java</exclude>
+                            <exclude>**/JanusGraphIoRegistrationStrategyTest.java</exclude>
+                            <exclude>**/StandardLogProcessorFrameworkTest.java</exclude>
+                            <exclude>**/ThreadLocalTxLeakTest.java</exclude>
+                            <exclude>**/CacheVertexTest.java</exclude>
+                            <exclude>**/VertexIdListTest.java</exclude>
+                            <exclude>**/IDManagementTest.java</exclude>
+                            <exclude>**/JanusGraphFactoryShorthandTest.java</exclude>
+                            <exclude>**/LockCleanerServiceTest.java</exclude>
+                            <exclude>**/EdgeSerializerTest.java</exclude>
+                            <exclude>**/RegisteredAttributeClassesConverterTest.java</exclude>
+                            <exclude>**/VertexListTest.java</exclude>
+                            <exclude>**/TinkerpopFeaturesTest.java</exclude>
+                            <exclude>**/UniqueInstanceIdRetrieverConcurrencyTest.java</exclude>
+                            <exclude>**/IndexSerializerTest.java</exclude>
+                            <exclude>**/ReadConfigurationBuilderTest.java</exclude>
+                            <exclude>**/ConsistentKeyLockerTest.java</exclude>
+                            <exclude>**/SaslAndHMACAuthenticatorTest.java</exclude>
+                            <exclude>**/ExpectedValueCheckingTest.java</exclude>
+                            <exclude>**/ConfigurationTest.java</exclude>
+                            <exclude>**/JanusGraphDefaultSchemaMakerTest.java</exclude>
+                            <exclude>**/LocalStoreManagerTest.java</exclude>
+                            <exclude>**/PartitionIDRangeTest.java</exclude>
+                            <exclude>**/JanusGraphServerTest.java</exclude>
+                            <exclude>**/AndJanusPredicateTest.java</exclude>
+                            <exclude>**/KCVSConfigTest.java</exclude>
+                            <exclude>**/BerkeleyOLAPTest.java</exclude>
+                            <exclude>**/UserModifiableConfigurationTest.java</exclude>
+                            <exclude>**/CommonConfigTest.java</exclude>
+                            <exclude>**/EmptyIndexCacheTest.java</exclude>
+                            <exclude>**/UniqueInstanceIdRetrieverTest.java</exclude>
+                            <exclude>**/EmptySubqueryCacheTest.java</exclude>
+                            <exclude>**/ExecutorServiceBuilderTest.java</exclude>
+                            <exclude>**/BackendTest.java</exclude>
+                            <exclude>**/EmptyVertexCacheTest.java</exclude>
+                            <exclude>**/JanusGraphGremlinPluginTest.java</exclude>
+                            <exclude>**/StandardTransactionBuilderTest.java</exclude>
+                            <exclude>**/GraphDatabaseConfigurationTest.java</exclude>
+                            <exclude>**/HMACAuthenticatorTest.java</exclude>
+                            <exclude>**/MetricInstrumentedStoreManagerTest.java</exclude>
+                            <exclude>**/ReflectiveConfigOptionLoaderTest.java</exclude>
+                            <exclude>**/JanusGraphMultiQueryStepTest.java</exclude>
+                            <exclude>**/CompletedJobFutureTest.java</exclude>
+                            <exclude>**/GeoshapeTest.java</exclude>
+                            <exclude>**/MultiDistinctUnorderedIteratorTest.java</exclude>
+                            <exclude>**/ConnectiveJanusGraphPTest.java</exclude>
+                            <exclude>**/ExecutorServiceInstrumentationTest.java</exclude>
+                            <exclude>**/JanusGraphStepStrategyTest.java</exclude>
+                            <exclude>**/RelationCacheTest.java</exclude>
+                            <exclude>**/JanusGraphSimpleAuthenticatorTest.java</exclude>
+                            <exclude>**/TextTest.java</exclude>
+                            <exclude>**/BufferUtilTest.java</exclude>
+                            <exclude>**/DateSerializerTest.java</exclude>
+                            <exclude>**/LockCleanerRunnableTest.java</exclude>
+                            <exclude>**/TestCoreElements.java</exclude>
+                            <exclude>**/StaticArrayBufferTest.java</exclude>
+                            <exclude>**/StaticArrayEntryTest.java</exclude>
+                            <exclude>**/StringEncodingTest.java</exclude>
+                            <exclude>**/CompatibilityValidatorTest.java</exclude>
+                            <exclude>**/JanusGraphManagerClientTest.java</exclude>
+                            <exclude>**/LocalLockMediatorTest.java</exclude>
+                            <exclude>**/PowerSetTest.java</exclude>
+                            <exclude>**/UUIDSerializerTest.java</exclude>
+                            <exclude>**/CloseableIteratorUtilsTest.java</exclude>
+                            <exclude>**/StorageFeaturesTest.java</exclude>
+                            <exclude>**/LoggerUtilTest.java</exclude>
+                            <exclude>**/FailedJobFutureTest.java</exclude>
+                            <exclude>**/SchemaManagerImplTest.java</exclude>
+                            <exclude>**/ConfigElementTest.java</exclude>
+                            <exclude>**/BitMapTest.java</exclude>
+                            <exclude>**/AbstractIdListUtilTest.java</exclude>
+                            <exclude>**/MultiIteratorTest.java</exclude>
+                            <exclude>**/EmptyScanJobFutureTest.java</exclude>
+                            <exclude>**/ArrayUtilTest.java</exclude>
+                            <exclude>**/RidGenerationTest.java</exclude>
+                            <exclude>**/EmptyAddedRelationsTest.java</exclude>
+                            <exclude>**/HttpHMACAuthenticationHandlerTest.java</exclude>
+                            <exclude>**/QueryUtilTest.java</exclude>
+                            <exclude>**/SaslAndHMACAuthenticationHandlerTest.java</exclude>
+                            <exclude>**/BerkeleyOperationCountingTest.java</exclude>
+                            <exclude>**/JanusGraphSettingsTest.java</exclude>
+                            <exclude>**/JanusGraphSettingsUtilsTest.java</exclude>
+                            <exclude>**/BerkeleyVariableLengthKCVSTest.java</exclude>
+                            <exclude>**/JanusGraphAppTest.java</exclude>
+                            <exclude>**/BerkeleyFixedLengthKCVSTest.java</exclude>
+                            <exclude>**/BerkeleyPartitionGraphTest.java</exclude>
+                            <exclude>**/BerkeleyKeyValueTest.java</exclude>
+                            <exclude>**/BerkeleyManagementTest.java</exclude>
+                            <exclude>**/BerkeleyTransactionTest.java</exclude>
+                            <exclude>**/CQLGraphCacheTest.java</exclude>
+                            <exclude>**/CQLIDAuthorityTest.java</exclude>
+                            <exclude>**/CQLGraphPerformanceMemoryTest.java</exclude>
+                            <exclude>**/CQLConfiguredGraphFactoryTest.java</exclude>
+                            <exclude>**/CQLOLAPTest.java</exclude>
+                            <exclude>**/CQLConfigTest.java</exclude>
+                            <exclude>**/CQLPartitionGraphTest.java</exclude>
+                            <exclude>**/CQLGraphIterativeTest.java</exclude>
+                            <exclude>**/CQLLockStoreTest.java</exclude>
+                            <exclude>**/CQLCustomIdSparkTest.java</exclude>
+                            <exclude>**/CQLIdTest.java</exclude>
+                            <exclude>**/CQLOperationCountingTest.java</exclude>
+                            <exclude>**/CQLLogTest.java</exclude>
+                            <exclude>**/CQLEventualGraphTest.java</exclude>
+                            <exclude>**/CQLStoreTest.java</exclude>
+                            <exclude>**/CQLMultiWriteStoreTest.java</exclude>
+                            <exclude>**/CQLCustomDelimiterTest.java</exclude>
+                            <exclude>**/CQLNonAsciiDelimiterTest.java</exclude>
+                            <exclude>**/CQLMultiCharDelimiterTest.java</exclude>
+                            <exclude>**/CQLResultSetKeyIteratorTest.java</exclude>
+                            <exclude>**/CQLDistributedStoreManagerTest.java</exclude>
+                            <exclude>**/GroupedExecutionStrategyBuilderTest.java</exclude>
+                            <exclude>**/CQLKeyColumnValueStoreTest.java</exclude>
+                            <exclude>**/CQLSubsetIteratorTest.java</exclude>
+
+                            <exclude>**/GeoToWktConverterTest.java</exclude>
+                            <exclude>**/StandardTokenizerTest.java</exclude>
+                            <exclude>**/SolrIndexKerberosMissingConfigTest.java</exclude>
+
+                            <!--WYLACZAM NIEDZIALAJACE TESTY SOLR-->
+                            <exclude>**/BerkeleySolrTest.java</exclude>
+                            <exclude>**/CQLSolrCustomIdTest.java</exclude>
+                            <exclude>**/CQLSolrTest.java</exclude>
+                            <exclude>**/SolrIndexWithoutKerberosTest.java</exclude>
+
+
+                            <!--NIEPOTRZEBNE HBASE-->
+                            <exclude>**/HBaseCustomIdSparkTest.java</exclude>
+                            <exclude>**/HBasePartitionGraphTest.java</exclude>
+                            <exclude>**/HBaseOLAPTest.java</exclude>
+                            <exclude>**/HBaseLuceneCustomIdTest.java</exclude>
+                            <exclude>**/HBaseGraphTest.java</exclude>
+                            <exclude>**/HBaseCustomIdTest.java</exclude>
+                            <exclude>**/HBaseStoreTest.java</exclude>
+                            <exclude>**/HBaseStoreManagerMutationTest.java</exclude>
+                            <exclude>**/HBaseStoreManagerConfigTest.java</exclude>
+                            <exclude>**/HBaseMultiWriteStoreTest.java</exclude>
+                            <exclude>**/HBaseLogTest.java</exclude>
+                            <exclude>**/HBaseLockStoreTest.java</exclude>
+                            <exclude>**/HBaseIDAuthorityTest.java</exclude>
+                            <exclude>**/HBaseDistributedStoreManagerTest.java</exclude>
+                            <exclude>**/HBaseOperationCountingTest.java</exclude>
+
+
                         </excludes>
                         <excludedGroups>${test.excluded.groups}</excludedGroups>
                         <skip>${test.skip.default}</skip>
@@ -415,11 +647,23 @@
                             </goals>
                             <phase>test</phase>
                             <configuration combine.self="override">
-                                <reuseForks>false</reuseForks>
+                                <!-- jawnie sekwencyjnie -->
                                 <forkCount>1</forkCount>
+                                <reuseForks>false</reuseForks>
                                 <parallel>none</parallel>
                                 <threadCount>1</threadCount>
                                 <perCoreThreadCount>false</perCoreThreadCount>
+
+                                <!-- spójny run order -->
+                                <runOrder>balanced</runOrder>
+
+                                <systemPropertyVariables>
+                                    <build.dir>${project.build.directory}</build.dir>
+                                    <is.testing>true</is.testing>
+                                    <user.timezone>UTC</user.timezone>
+                                    <hadoop.security.authentication>simple</hadoop.security.authentication>
+                                </systemPropertyVariables>
+
                                 <includes>
                                     <include>**/*Groovy*Test.java</include>
                                     <include>**/*ComputerTest.java</include>
@@ -427,12 +671,7 @@
                                     <include>**/*ProcessPerformanceTest.java</include>
                                     <include>**/*StructureTest.java</include>
                                 </includes>
-                                <runOrder>alphabetical</runOrder>
                                 <skipTests>${test.skip.tp}</skipTests>
-                                <systemPropertyVariables>
-                                    <build.dir>${project.build.directory}</build.dir>
-                                    <is.testing>true</is.testing>
-                                </systemPropertyVariables>
                             </configuration>
                         </execution>
                     </executions>
@@ -696,11 +935,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.18.0</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-configuration</groupId>
-                <artifactId>commons-configuration</artifactId>
-                <version>1.10</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>

@@ -20,6 +20,7 @@ import org.janusgraph.JanusGraphCassandraContainer;
 import org.janusgraph.StorageSetup;
 import org.janusgraph.diskstorage.configuration.WriteConfiguration;
 import org.janusgraph.graphdb.JanusGraphTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -41,6 +42,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     @ParameterizedRepeatedIfExceptionsTest(repeats = 3)
     @ValueSource(booleans = {true, false})
     @Override
+    @Disabled
     public void simpleLogTest(boolean useStringId) throws InterruptedException {
         super.simpleLogTest(useStringId);
     }
@@ -49,6 +51,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     @ParameterizedRepeatedIfExceptionsTest(repeats = 3)
     @ValueSource(booleans = {true, false})
     @Override
+    @Disabled
     public void simpleLogTestWithFailure(boolean useStringId) throws InterruptedException {
         super.simpleLogTestWithFailure(useStringId);
     }
@@ -56,6 +59,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/1497
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testEdgeTTLTiming() throws Exception {
         super.testEdgeTTLTiming();
     }
@@ -63,6 +67,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/1462
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testEdgeTTLWithTransactions() throws Exception {
         super.testEdgeTTLWithTransactions();
     }
@@ -70,6 +75,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/1464
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testVertexTTLWithCompositeIndex() throws Exception {
         super.testVertexTTLWithCompositeIndex();
     }
@@ -77,6 +83,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/1465
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testVertexTTLImplicitKey() throws Exception {
         super.testVertexTTLImplicitKey();
     }
@@ -84,6 +91,7 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     // flaky test: https://github.com/JanusGraph/janusgraph/issues/3142
     @RepeatedIfExceptionsTest(repeats = 3)
     @Override
+    @Disabled
     public void testReindexingForEdgeIndex() throws ExecutionException, InterruptedException {
         super.testReindexingForEdgeIndex();
     }

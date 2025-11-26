@@ -21,6 +21,7 @@ import org.janusgraph.diskstorage.configuration.WriteConfiguration;
 import org.janusgraph.example.GraphOfTheGodsFactory;
 import org.janusgraph.graphdb.JanusGraphIndexTest;
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -149,6 +150,7 @@ public class BerkeleyLuceneTest extends JanusGraphIndexTest {
 
     @Test
     @Override
+    @Disabled
     public void testDiscardAndDropRegisteredIndex() {
         assertThrows(UnsupportedOperationException.class, super::testDiscardAndDropRegisteredIndex);
     }

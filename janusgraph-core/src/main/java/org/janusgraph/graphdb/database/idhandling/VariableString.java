@@ -15,7 +15,7 @@
 package org.janusgraph.graphdb.database.idhandling;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.janusgraph.diskstorage.ReadBuffer;
 import org.janusgraph.diskstorage.WriteBuffer;
 import org.janusgraph.graphdb.database.serialize.attribute.StringSerializer;
